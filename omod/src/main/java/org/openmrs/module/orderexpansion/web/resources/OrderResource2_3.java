@@ -17,7 +17,7 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_2.OrderRes
         "2.6.* - 9.*" })
 public class OrderResource2_3 extends OrderResource2_2 {
 	
-	private String PROCEDURE_ORDER_TYPE_UUID = "4237a01f-29c5-4167-9d8e-96d6e590aa33";
+	private String PROCEDURE_ORDER_TYPE_UUID = "b4a7c280-369e-4d12-9ce8-18e36783fed6";
 	
 	private String MEDICAL_SUPPLY_ORDER_TYPE_UUID = "dab3ab30-2feb-48ec-b4af-8332a0831b49";
 	

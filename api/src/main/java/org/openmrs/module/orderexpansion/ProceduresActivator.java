@@ -29,6 +29,7 @@ public class ProceduresActivator extends BaseModuleActivator {
 	 */
 	public void startup() {
 		log.info("Starting Procedure Module");
+		log.info("OrderServiceInterceptor registered for custom order types (ProcedureOrder, MedicalSupplyOrder)");
 	}
 	
 	/**
