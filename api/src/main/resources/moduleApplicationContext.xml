@@ -76,4 +76,7 @@
         </property>
     </bean>
 
+    <!-- BeanPostProcessor to wrap OrderService with custom order type support -->
+    <bean class="org.openmrs.module.orderexpansion.factory.OrderServiceBeanPostProcessor" />
+
 </beans>
