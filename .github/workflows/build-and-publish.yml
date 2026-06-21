@@ -1,4 +1,4 @@
-name: Build and Publish to Nexus
+name: Build and Publish to OpenMRS Nexus
 
 on:
   # Manually triggered workflow using the "Run workflow" button
@@ -43,14 +43,14 @@ jobs:
         with:
           servers: |
             [{
-              "id": "mks-repo",
-              "username": "${{ secrets.MAVEN_USERNAME }}",
-              "password": "${{ secrets.MAVEN_TOKEN }}"
+              "id": "openmrs-repo-modules",
+              "username": "${{ secrets.ARTIFACTORY_USERNAME }}",
+              "password": "${{ secrets.ARTIFACTORY_PASSWORD }}"
             },
             {
-              "id": "mks-repo-snapshots",
-              "username": "${{ secrets.MAVEN_USERNAME }}",
-              "password": "${{ secrets.MAVEN_TOKEN }}"
+              "id": "openmrs-repo-snapshots",
+              "username": "${{ secrets.ARTIFACTORY_USERNAME }}",
+              "password": "${{ secrets.ARTIFACTORY_PASSWORD }}"
             }]
 
       - name: Publish

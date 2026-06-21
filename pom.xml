@@ -2,18 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.openmrs.maven.parents</groupId>
+		<artifactId>maven-parent-openmrs-module</artifactId>
+		<version>1.1.1</version>
+	</parent>
+
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>orderexpansion</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>5.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Order Expansion Module</name>
 	<description>OpenMRS module for management of order extension</description>
 
+	<url>https://github.com/epcare/openmrs-module-orderexpansion</url>
 
 	<scm>
-		<connection>scm:git:git@github.com:openmrs/openmrs-module-basicmodule.git</connection>
-		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-basicmodule.git</developerConnection>
-		<url>https://github.com/openmrs/openmrs-module-basicmodule/</url>
+		<connection>scm:git:git@github.com:epcare/openmrs-module-orderexpansion.git</connection>
+		<developerConnection>scm:git:git@github.com:epcare/openmrs-module-orderexpansion.git</developerConnection>
+		<url>https://github.com/epcare/openmrs-module-orderexpansion</url>
+		<tag>HEAD</tag>
 	</scm>
 
 	<developers>
@@ -54,14 +62,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>mks-repo</id>
-			<name>Mekom Solutions Nexus Releases</name>
-			<url>https://nexus.mekomsolutions.net/repository/maven-releases</url>
+			<id>openmrs-repo-modules</id>
+			<name>OpenMRS Modules</name>
+			<url>https://openmrs.jfrog.io/artifactory/modules/</url>
 		</repository>
 		<snapshotRepository>
-			<id>mks-repo-snapshots</id>
-			<name>Mekom Solutions Nexus Snapshots</name>
-			<url>https://nexus.mekomsolutions.net/repository/maven-snapshots</url>
+			<id>openmrs-repo-snapshots</id>
+			<name>OpenMRS Snapshots</name>
+			<url>https://openmrs.jfrog.io/openmrs/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
