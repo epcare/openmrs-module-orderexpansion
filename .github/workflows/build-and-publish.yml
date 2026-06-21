@@ -1,4 +1,4 @@
-name: Build and Publish to OpenMRS Nexus
+name: Build
 
 on:
   # Manually triggered workflow using the "Run workflow" button
@@ -23,35 +23,3 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B package -DskipTests
-
-  publish:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 8
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '8'
-
-      - name: Set settings.xml
-        uses: s4u/maven-settings-action@v3.0.0
-        with:
-          servers: |
-            [{
-              "id": "openmrs-repo-modules",
-              "username": "${{ secrets.ARTIFACTORY_USERNAME }}",
-              "password": "${{ secrets.ARTIFACTORY_PASSWORD }}"
-            },
-            {
-              "id": "openmrs-repo-snapshots",
-              "username": "${{ secrets.ARTIFACTORY_USERNAME }}",
-              "password": "${{ secrets.ARTIFACTORY_PASSWORD }}"
-            }]
-
-      - name: Publish
-        run: mvn --batch-mode clean deploy -DskipTests
