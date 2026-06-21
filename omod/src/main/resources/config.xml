@@ -12,7 +12,7 @@
 		${project.parent.description}
 	</description>
 
-	<activator>org.openmrs.module.orderexpansion.ProceduresActivator</activator>
+	<activator>org.openmrs.module.orderexpansion.Activator</activator>
 
 	<require_version>2.0.5 - 2.*</require_version>
 
