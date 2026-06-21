@@ -10,7 +10,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>orderexpansion</artifactId>
-	<version>5.0.0-SNAPSHOT</version>
+	<version>5.0.0</version>
 	<packaging>pom</packaging>
 	<name>Order Expansion Module</name>
 	<description>OpenMRS module for management of order extension</description>
@@ -21,7 +21,7 @@
 		<connection>scm:git:git@github.com:epcare/openmrs-module-orderexpansion.git</connection>
 		<developerConnection>scm:git:git@github.com:epcare/openmrs-module-orderexpansion.git</developerConnection>
 		<url>https://github.com/epcare/openmrs-module-orderexpansion</url>
-		<tag>HEAD</tag>
+		<tag>5.0.0</tag>
 	</scm>
 
 	<developers>
