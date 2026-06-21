@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Release version (e.g., 1.0.1)'
+        description: 'Release version'
         required: true
       development_version:
-        description: 'Next development version (e.g., 1.0.2-SNAPSHOT)'
+        description: 'Next development version'
         required: true
 
 permissions:
@@ -59,10 +59,10 @@ jobs:
       - name: Maven Release Perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
-          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
         run: |
           mvn --batch-mode release:perform \
             -DaltDeploymentRepository=openmrs-repo-modules::default::https://openmrs.jfrog.io/artifactory/modules/ \
-            -Dusername=${{ secrets.ARTIFACTORY_USERNAME }} \
-            -Dpassword=${{ secrets.ARTIFACTORY_PASSWORD }}
+            -Dusername=${{ secrets.MAVEN_USERNAME }} \
+            -Dpassword=${{ secrets.MAVEN_PASSWORD }}
