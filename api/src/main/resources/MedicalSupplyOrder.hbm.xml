@@ -1,10 +1,21 @@
 <?xml version="1.0"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <joined-subclass name="org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supplies_order" lazy="false">
+    <joined-subclass name="org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supplies_order" lazy="true">
 
         <key column="order_id" not-null="true" on-delete="cascade" />
          <many-to-one name="quantityUnits" class="org.openmrs.Concept" column="quantity_units" />

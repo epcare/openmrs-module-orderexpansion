@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
 
 <module configVersion="1.2">
 
@@ -14,17 +25,25 @@
 
 	<activator>org.openmrs.module.orderexpansion.Activator</activator>
 
-	<require_version>2.0.5 - 2.*</require_version>
+	<require_version>${openmrsPlatformVersion}</require_version>
 
 	<require_modules>
 		<require_module>org.openmrs.module.webservices.rest</require_module>
+		<require_module>org.openmrs.module.emrapi</require_module>
 	</require_modules>
 
 	<!-- Maps hibernate files, if present -->
 	<mappingFiles>
 		ProcedureOrder.hbm.xml
 		MedicalSupplyOrder.hbm.xml
+		MedicalSupplyDispense.hbm.xml
 	</mappingFiles>
+
+	<!-- AOP Advice for handling custom order types -->
+	<advice>
+		<point>org.openmrs.api.OrderService</point>
+		<class>org.openmrs.module.orderexpansion.advice.EnhanceOrderContextForCustomTypesAdvice</class>
+	</advice>
 
 	<messages>
 		<lang>en</lang>
@@ -33,10 +52,6 @@
 	<messages>
 		<lang>fr</lang>
 		<file>messages_fr.properties</file>
-	</messages>
-	<messages>
-		<lang>es</lang>
-		<file>messages_es.properties</file>
 	</messages>
 	<!-- /Internationalization -->
 

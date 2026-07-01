@@ -1,82 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
+
+<!-- Beans to add to the current Application context definition -->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-  		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-  		    http://www.springframework.org/schema/context
-  		    http://www.springframework.org/schema/context/spring-context-3.0.xsd
-  		    http://www.springframework.org/schema/jee
-  		    http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
-  		    http://www.springframework.org/schema/tx
-  		    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-  		    http://www.springframework.org/schema/aop
-  		    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-  		    http://www.springframework.org/schema/util
-  		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+			    http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <!-- Wraps QueueService methods in DB transactions and OpenMRS interceptors,
+    <!-- OrderExpansion Service - Wraps methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
 
-    <context:annotation-config/>
-    <context:component-scan base-package="org.openmrs.module.orderexpansion" />
-
-    <bean id="procedureService"
+    <bean id="orderExpansionService"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"/>
         <property name="target">
-            <bean class="org.openmrs.module.orderexpansion.api.impl.ProcedureServiceImpl">
-                <property name="procedureDao" ref="procedureDao"/>
+            <bean class="org.openmrs.module.orderexpansion.api.impl.OrderExpansionServiceImpl">
+                <property name="dao" ref="orderExpansionDao"/>
             </bean>
         </property>
         <property name="preInterceptors" ref="serviceInterceptors"/>
         <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
     </bean>
 
-    <bean id="procedureDao" class="org.openmrs.module.orderexpansion.api.dao.impl.ProcedureDaoImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory"/>
-        </property>
-    </bean>
-     <bean parent="serviceContext">
-        <property name="moduleService">
-            <list>
-                <value>org.openmrs.module.orderexpansion.api.ProcedureService</value>
-                <ref bean="procedureService"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="medicalSupplyDispenseService"
-          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="target">
-            <bean class="org.openmrs.module.orderexpansion.api.impl.MedicalSupplyDispenseServiceImpl">
-                <property name="medicalSupplyDispenseDao" ref="medicalSupplyDispenseDao"/>
-            </bean>
-        </property>
-        <property name="preInterceptors" ref="serviceInterceptors"/>
-        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
-    </bean>
-
-    <bean id="medicalSupplyDispenseDao" class="org.openmrs.module.orderexpansion.api.dao.impl.MedicalSupplyDispenseDaoImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory"/>
-        </property>
+    <bean id="orderExpansionDao" class="org.openmrs.module.orderexpansion.api.dao.impl.OrderExpansionDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.orderexpansion.api.MedicalSupplyDispenseService</value>
-                <ref bean="medicalSupplyDispenseService"/>
+                <value>org.openmrs.module.orderexpansion.api.OrderExpansionService</value>
+                <ref bean="orderExpansionService"/>
             </list>
         </property>
     </bean>
-
-    <!-- BeanPostProcessor to wrap OrderService with custom order type support -->
-    <bean class="org.openmrs.module.orderexpansion.factory.OrderServiceBeanPostProcessor" />
 
 </beans>

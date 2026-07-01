@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense" table="medical_supply_dispense">
+
+        <id name="medicalSupplyDispenseId" type="int" column="medical_supply_dispense_id">
+            <generator class="native"/>
+        </id>
+
+        <many-to-one name="patient" class="org.openmrs.Patient" column="patient_id" not-null="false"/>
+        <many-to-one name="encounter" class="org.openmrs.Encounter" column="encounter_id" not-null="false"/>
+        <many-to-one name="medicalSupplyOrder" class="org.openmrs.Order" column="medical_supply_order_id" not-null="false"/>
+        <many-to-one name="concept" class="org.openmrs.Concept" column="concept" not-null="false"/>
+        <many-to-one name="dispenser" class="org.openmrs.User" column="dispenser" not-null="false"/>
+        <many-to-one name="quantityUnits" class="org.openmrs.Concept" column="quantity_units" not-null="false"/>
+        <many-to-one name="statusReason" class="org.openmrs.Concept" column="status_reason" not-null="false"/>
+        <many-to-one name="location" class="org.openmrs.Location" column="location_id" not-null="false"/>
+
+        <property name="dateDispensed" type="java.util.Date" column="date_dispensed"/>
+        <property name="quantity" type="double" column="quantity"/>
+        <property name="status" type="org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense$MedicalSupplyStatus" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense$MedicalSupplyStatus</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
+        <!-- BaseOpenmrsData and BaseFormRecordableOpenmrsData fields -->
+        <many-to-one name="creator" class="org.openmrs.User" column="creator" not-null="true"/>
+        <property name="dateCreated" type="java.util.Date" column="date_created" not-null="true"/>
+        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by"/>
+        <property name="dateChanged" type="java.util.Date" column="date_changed"/>
+        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by"/>
+        <property name="dateVoided" type="java.util.Date" column="date_voided"/>
+        <property name="voidReason" type="java.lang.String" column="void_reason"/>
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" not-null="true"/>
+
+    </class>
+</hibernate-mapping>
